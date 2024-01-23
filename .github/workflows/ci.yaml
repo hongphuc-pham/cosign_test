@@ -52,17 +52,10 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
-
-
-      - name: Write signing key to disk
-        run: 'echo "$KEY" > cosign.key'
-        shell: bash
-        env:
-          KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
           
       - name: Sign image with a key
         run: |
-          cosign sign --key cosign.key  ghcr.io/${{ github.repository }}:latest
+          cosign sign --key ${{ secrets.COSIGN_PRIVATE_KEY }}  ghcr.io/${{ github.repository }}:latest
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
