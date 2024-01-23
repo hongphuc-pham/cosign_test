@@ -1,4 +1,7 @@
 FROM ubuntu:22.04
-COPY . /app
-RUN make /app
-CMD python /app/app.py
+
+WORKDIR /app
+
+COPY main.py ./
+
+CMD ["python", "main.py"]
